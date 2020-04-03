@@ -12,7 +12,7 @@ class GameCLITest {
     GameCLI gameCLI;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         board = new Board(3);
         gameCLI = new GameCLI();
     }

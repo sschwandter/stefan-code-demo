@@ -12,18 +12,18 @@ class GameTest {
     Game game;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         board = new Board(3);
         game = new Game(board);
     }
 
     @Test
     void playerXWon() {
-        game.playerSet(Player.X, 0, 0);
-        game.playerSet(Player.O, 2, 0);
-        game.playerSet(Player.X, 0, 1);
-        game.playerSet(Player.O, 2, 1);
-        game.playerSet(Player.X, 0, 2);
+        game.playerSet(1, 1);
+        game.playerSet(3, 1);
+        game.playerSet(1, 2);
+        game.playerSet(3, 2);
+        game.playerSet(1, 3);
         assertTrue(game.playerWon(Player.X));
     }
 

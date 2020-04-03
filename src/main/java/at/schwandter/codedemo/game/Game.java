@@ -1,3 +1,6 @@
+/**
+ * Contains game rules
+ */
 package at.schwandter.codedemo.game;
 
 public class Game {
@@ -14,12 +17,9 @@ public class Game {
         return board.fullRow(player) || board.fullColumn(player) || board.fullDiagonal(player);
     }
 
-    public void playerSet(Player player, int row, int col) {
-        board.setEntry(player, row, col);
-    }
-
-    public void nextPlayer() {
-        currentPlayer = (getCurrentPlayer().equals(Player.X)) ? Player.O : Player.X;
+    public void playerSet(int row, int col) {
+        board.setEntry(getCurrentPlayer(), internalIndex(row), internalIndex(col));
+        nextPlayer();
     }
 
     public boolean finished() {
@@ -28,5 +28,13 @@ public class Game {
 
     public Player getCurrentPlayer() {
         return currentPlayer;
+    }
+
+    void nextPlayer() {
+        currentPlayer = (getCurrentPlayer().equals(Player.X)) ? Player.O : Player.X;
+    }
+
+    private int internalIndex(int row) {
+        return row - 1;
     }
 }
