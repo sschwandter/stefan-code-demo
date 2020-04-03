@@ -39,40 +39,53 @@ public class GameCLI {
     }
 
     private void runGame() {
-
         Scanner in = new Scanner(System.in);
-
         while (!game.finished()) {
-            newTurn(in, Player.X);
-            newTurn(in, Player.O);
+            takeTurn(in, game.getCurrentPlayer());
         }
     }
 
-    private void newTurn(Scanner in, Player player) {
-
-
+    private void takeTurn(Scanner in, Player player) {
         while (true) {
-            System.out.println("Player " + player + ", enter row (1-3)");
-            int row = in.nextInt();
-            System.out.println("Player " + player + ", enter column (1-3)");
-            int col = in.nextInt();
-            try {
-                game.playerSet(player, internalIndex(row), internalIndex(col));
-                break;
-            } catch (EntryAlreadySetException e) {
-                System.out.println("This field was already set, try another one");
-            } finally {
-                this.drawBoard(board);
-            }
+            var location = getUserInput(player, in);
+            trySetPiece(player, location);
+            game.nextPlayer();
+            break;
         }
         if (game.playerWon(player)) {
             System.out.println("Player won: " + player);
-            System.exit(0);
         }
+    }
 
+    private Location getUserInput(Player player, Scanner in) {
+        System.out.println("Player " + player + ", enter row (1-3)");
+        int row = in.nextInt();
+        System.out.println("Player " + player + ", enter column (1-3)");
+        int col = in.nextInt();
+        return new Location(row, col);
+    }
+
+    private void trySetPiece(Player player, Location location) {
+        try {
+            game.playerSet(player, internalIndex(location.row), internalIndex(location.col));
+        } catch (EntryAlreadySetException e) {
+            System.out.println("This field was already set, try another one");
+        } finally {
+            this.drawBoard(board);
+        }
     }
 
     private int internalIndex(int row) {
         return row - 1;
+    }
+
+    private class Location {
+        final int row;
+        final int col;
+
+        private Location(int row, int col) {
+            this.row = row;
+            this.col = col;
+        }
     }
 }

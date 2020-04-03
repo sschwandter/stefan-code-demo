@@ -1,0 +1,11 @@
+Next:
+
+*) Check for erroneous user inputs other than choosing the same field twice
+*) Make game actually work for game board sizes other than 3x3
+*) GameCLI: make console output testable
+*) Simplify code for full row/column/diagonal detection
+
+Later:
+
+*) Make "business logic" available as REST service
+*) Web UI
