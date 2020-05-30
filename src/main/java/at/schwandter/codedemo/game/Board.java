@@ -1,13 +1,17 @@
 package at.schwandter.codedemo.game;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
 import java.util.Optional;
 
+@Service
 public class Board {
 
     private final Player[][] boardEntries;
     private final int size;
 
-    public Board(int size) {
+    public Board(@Value("${boardsize}") int size) {
         boardEntries = new Player[size][size];
         this.size = size;
     }
